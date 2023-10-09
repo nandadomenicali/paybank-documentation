@@ -1,0 +1,63 @@
+openapi: 3.0.3
+info:
+  title: PAYBANK - API Partners V1
+  description: |-
+   This is a simplified bank based on the OpenAPI 3.0 specification. Where the main objective is to simplify transactions and interactions between microservices. This project is aimed at professional improvement.
+   
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: domecoderdeveloper@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+servers:
+  - url: https://simplifiedbank.swagger.io/api/v1
+tags:
+  - name: customers
+    description: Operations about customer
+    
+paths:
+  /customers:
+    post:
+      tags:
+        - customers
+      summary: Create customer
+      description: Registration of a customer.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: ''
+      responses:
+        '201':
+          description: Customer created successfully
+          content:
+            application/json:
+              schema:
+                $ref: ''
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example: 
+                message: IN DEFINITION...
+        '500':
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example: 
+                message: Internal Server Error
+
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
