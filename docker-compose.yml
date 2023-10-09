@@ -12,9 +12,9 @@ services:
     ports:
       - "8082:8080"
     volumes:
-      - ./swagger/openapi.yaml:/openapi.yaml
+      - ./swagger/openapi.yml:/openapi.yml
     environment:
-      SWAGGER_YAML: /openapi.yaml
+      SWAGGER_JSON: /openapi.yml
       # API_URL: ""
 
   swagger-api:
@@ -23,8 +23,8 @@ services:
     ports:
       - "8083:8000"
     volumes:
-      - ./swagger/openapi.yaml/openapi.yaml
-    command: /openapi.yaml
+      - ./swagger/openapi.yml/openapi.yml
+    command: /openapi.yml
     networks:
       swagger_link:
         aliases:
