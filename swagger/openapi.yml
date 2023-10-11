@@ -3,10 +3,9 @@ info:
   title: PAYBANK - Documentation V1
   description: |-
    This is a simplified bank based on the OpenAPI 3.0 specification. Where the main objective is to simplify transactions and interactions between microservices. This project is aimed at professional improvement.
-   
   termsOfService: http://swagger.io/terms/
   contact:
-    email: domecoderdeveloper@gmail.com
+    email: paybankdocumentation@paybank.com
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
@@ -29,14 +28,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: ''
+              $ref: '#/components/schemas/RequestCreateCustomer'
       responses:
         '201':
           description: Customer created successfully
           content:
             application/json:
               schema:
-                $ref: ''
+                $ref: '#/components/schemas/ResponseCreateCustomer'
         '400':
           description: Bad Request
           content:
@@ -53,7 +52,74 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
               example: 
                 message: Internal Server Error
+                
+  /customers/v1/{document}:
+    get:
+      tags:
+        - customers
+      summary: Get a customer by document number
+      parameters:
+        - in: path
+          name: document
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseGetCustomerByDocument'
+        '404':
+          description: Customer not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example: 
+                message: No customer was found with this document
+        '500':
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example: 
+                message: Internal Server Error
 
+    patch:
+      tags:
+        - customers
+      summary: Update a customer by document number
+      parameters:
+        - in: path
+          name: document
+          schema:
+            type: string
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestCreateCustomer'
+      responses:
+        '200':
+          description: Customer changed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseCreateCustomer'
+        '500':
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example: 
+                message: Internal Server Error
+    
 components:
   schemas:
     ErrorResponse:
@@ -61,3 +127,221 @@ components:
       properties:
         message:
           type: string
+    RequestCreateCustomer:
+      type: object
+      required: 
+       - document
+       - email
+       - fullName
+       - mothersName
+       - gender
+       - personType
+       - birthDate
+       - phoneNumber
+      properties:
+        document:
+          type: string
+          description: "Customer document - CPF/CNPJ"
+          example: "12345678910"
+          maximum: 14
+          minimum: 11
+        email:
+          type: string
+          description: "Customer e-mail"
+          example: "customer@email.com"
+          maximum: 150
+          minimum: 15
+        login:
+          type: string
+          description: "Customer reference"
+          example: "@customer"
+          maximum: 100
+          minimum: 0
+        fullName: 
+          type: string
+          description: "Customer full name"
+          example: "Joseph Joe Jackson"
+          maximum: 100
+          minimum: 20
+        mothersName: 
+          type: string
+          description: "Customer's mother's name"
+          example: "Sara Joe Jackson"
+          maximum: 100
+          minimum: 20
+        fathersName: 
+          type: string
+          description: "Customer's father's name"
+          example: "John Jackson"
+          maximum: 100
+          minimum: 20
+        gender:
+          type: integer
+          description: "Customer gender"
+          example: 10
+        personType: 
+          type: string
+          description: "Type of nature of the person (F: physical | P: legal)"
+          enum: 
+            - F
+            - J
+          maximum: 1
+        birthDate:
+          type: string
+          format: date
+          description: "Customer's date of birth"
+          example: "1990-01-01"
+          maximum: 10
+          minimum: 10
+        phoneNumberCityCode:
+          type: number
+          description: "City phone code - DDD"
+          example: 11
+          maximum: 2
+          minimum: 2
+        phoneNumber:
+          type: number
+          description: "Customer cell phone"
+          example: 990898989
+        phoneType:
+          type: string
+          enum: 
+            - COMMERCIAL
+            - PERSONAL
+        address:
+          allOf:
+            - $ref: "#/components/schemas/RequestCustomerAddress"
+            
+    RequestCustomerAddress:
+      type: object
+      properties:
+        postcode:
+          type: string
+          description: "Postal Code - zip code"
+          example: "00303-293"
+          maximum: 9
+          minimum: 8
+        streetName:
+          type: string
+          description: "Street name"
+          example: "AV Paulista"
+          maximum: 100
+          minimum: 1
+        streetNumber: 
+          type: string
+          description: "Street number"
+          example: "22"
+          maximum: 6
+          minimum: 1
+        complement:
+          type: string
+          description: "Complement of the street" 
+          example: "Apto 21"
+          maximum: 100
+          minimum: 1
+        neighborhood:
+          type: string
+          description: "Neighborhood" 
+          example: "Bela Vista"
+          maximum: 200
+          minimum: 5
+        city:
+          type: string
+          description: "City" 
+          example: "Sao paulo"
+          maximum: 200
+          minimum: 5
+        uf: 
+          type: string
+          description: "State" 
+          example: "SP"
+          maximum: 4
+          minimum: 2
+        country:
+          type: string
+          description: "Country" 
+          example: "Brazil"
+          maximum: 150
+          minimum: 15
+        
+    ResponseCreateCustomer:
+      type: object
+      properties: 
+        document: 
+          type: string
+          example: "12345678910"
+          
+    ResponseGetCustomerByDocument:
+      properties:
+        document:
+          type: string
+          description: "Customer document - CPF/CNPJ"
+          example: "12345678910"
+          maximum: 14
+          minimum: 11
+        email:
+          type: string
+          description: "Customer e-mail"
+          example: "customer@email.com"
+          maximum: 150
+          minimum: 15
+        login:
+          type: string
+          description: "Customer reference"
+          example: "@customer"
+          maximum: 100
+          minimum: 0
+        fullName: 
+          type: string
+          description: "Customer full name"
+          example: "Joseph Joe Jackson"
+          maximum: 100
+          minimum: 20
+        mothersName: 
+          type: string
+          description: "Customer's mother's name"
+          example: "Sara Joe Jackson"
+          maximum: 100
+          minimum: 20
+        fathersName: 
+          type: string
+          description: "Customer's father's name"
+          example: "John Jackson"
+          maximum: 100
+          minimum: 20
+        gender:
+          type: integer
+          description: "Customer gender"
+          example: 10
+        personType: 
+          type: string
+          description: "Type of nature of the person (F: physical | P: legal)"
+          enum: 
+            - F
+            - J
+          maximum: 1
+        birthDate:
+          type: string
+          format: date
+          description: "Customer's date of birth"
+          example: "1990-01-01"
+          maximum: 10
+          minimum: 10
+        phoneNumberCityCode:
+          type: number
+          description: "City phone code - DDD"
+          example: 11
+          maximum: 2
+          minimum: 2
+        phoneNumber:
+          type: number
+          description: "Customer cell phone"
+          example: 990898989
+        phoneType:
+          type: string
+          enum: 
+            - COMMERCIAL
+            - PERSONAL
+        address:
+          allOf:
+            - $ref: "#/components/schemas/RequestCustomerAddress"
