@@ -1,10 +1,10 @@
-
 # paybank-documentation
 
 ### ⚡️ Overview
 
 - Project created to document the PAYBANK project APIs;
 - This project is using swagger;
+- TThis is an apis documentation project referring to a project/study in partnership
 
 All you need to do is edit the swagger spec, save as openapi.yml, and restart docker. Voila, UI and the mock API server are updated.
 
