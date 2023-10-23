@@ -133,11 +133,6 @@ components:
        - document
        - email
        - fullName
-       - mothersName
-       - gender
-       - personType
-       - birthDate
-       - phoneNumber
       properties:
         document:
           type: string
@@ -163,29 +158,6 @@ components:
           example: "Joseph Joe Jackson"
           maximum: 100
           minimum: 20
-        mothersName: 
-          type: string
-          description: "Customer's mother's name"
-          example: "Sara Joe Jackson"
-          maximum: 100
-          minimum: 20
-        fathersName: 
-          type: string
-          description: "Customer's father's name"
-          example: "John Jackson"
-          maximum: 100
-          minimum: 20
-        gender:
-          type: integer
-          description: "Customer gender"
-          example: 10
-        personType: 
-          type: string
-          description: "Type of nature of the person (F: physical | P: legal)"
-          enum: 
-            - F
-            - J
-          maximum: 1
         birthDate:
           type: string
           format: date
@@ -193,21 +165,6 @@ components:
           example: "1990-01-01"
           maximum: 10
           minimum: 10
-        phoneNumberCityCode:
-          type: number
-          description: "City phone code - DDD"
-          example: 11
-          maximum: 2
-          minimum: 2
-        phoneNumber:
-          type: number
-          description: "Customer cell phone"
-          example: 990898989
-        phoneType:
-          type: string
-          enum: 
-            - COMMERCIAL
-            - PERSONAL
         address:
           allOf:
             - $ref: "#/components/schemas/RequestCustomerAddress"
@@ -297,29 +254,6 @@ components:
           example: "Joseph Joe Jackson"
           maximum: 100
           minimum: 20
-        mothersName: 
-          type: string
-          description: "Customer's mother's name"
-          example: "Sara Joe Jackson"
-          maximum: 100
-          minimum: 20
-        fathersName: 
-          type: string
-          description: "Customer's father's name"
-          example: "John Jackson"
-          maximum: 100
-          minimum: 20
-        gender:
-          type: integer
-          description: "Customer gender"
-          example: 10
-        personType: 
-          type: string
-          description: "Type of nature of the person (F: physical | P: legal)"
-          enum: 
-            - F
-            - J
-          maximum: 1
         birthDate:
           type: string
           format: date
@@ -327,21 +261,6 @@ components:
           example: "1990-01-01"
           maximum: 10
           minimum: 10
-        phoneNumberCityCode:
-          type: number
-          description: "City phone code - DDD"
-          example: 11
-          maximum: 2
-          minimum: 2
-        phoneNumber:
-          type: number
-          description: "Customer cell phone"
-          example: 990898989
-        phoneType:
-          type: string
-          enum: 
-            - COMMERCIAL
-            - PERSONAL
         address:
           allOf:
             - $ref: "#/components/schemas/RequestCustomerAddress"
